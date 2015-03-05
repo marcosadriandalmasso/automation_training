@@ -1,5 +1,6 @@
 package com.globant.training.marcos_dalmasso.tests;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -65,7 +66,6 @@ public class Tests {
 		ContactPage contactPage = PageFactory.initElements(driver, ContactPage.class);
 		contactPage.goToConctPage(driver);
 		contactPage.sendContactForm("Ma", "m@m.com", "T", "T");
-		System.out.println("Mensaje de confirmación: "+contactPage.getConfirmMessage());
 		Assert.assertEquals(contactPage.getConfirmMessage(), "Su mensaje a sido enviado correctamente. Gracias por contactar con nosostros");
 	}
 	
@@ -78,5 +78,12 @@ public class Tests {
 		String alertError = alert.getText();
 		alert.accept();
 		Assert.assertEquals(alertError, "Debe ingresar un nombre correcto");
+	}
+	
+	@Test
+	public void countActualMonthPosts() {
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		homePage.goToBlogPage(driver);
+		
 	}
 }
