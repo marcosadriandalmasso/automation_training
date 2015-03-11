@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage {
 
-	@FindBy(xpath=".//*[@id='headerStandard']/div[1]/div[1]/ul[1]/li[2]/a")
+	@FindBy(xpath="//li[@class='signInLink socialLogin']")
 	private WebElement loginLink;
 	
 	public void goToHomePage(WebDriver driver) {

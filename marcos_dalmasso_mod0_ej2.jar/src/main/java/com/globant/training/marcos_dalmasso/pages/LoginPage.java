@@ -15,7 +15,7 @@ public class LoginPage {
 	@FindBy(xpath=".//*[@id='main']/div[2]/div[1]/div/div[1]/div[4]/input")
 	private WebElement signinButton;
 	
-	@FindBy(xpath="//li[@class='signOutLink']")
+	@FindBy(xpath="//li[@class='signOutLink']/a")
 	private WebElement logoutButtom;
 	
 	@FindBy(xpath="//li[@class='welcomeText']")
@@ -45,11 +45,14 @@ public class LoginPage {
 		return welcomeText.getText().contains("CheapTickets");
 	}
 	
-	public boolean badEmailLoginTest() {
-		return errorText.getText().contains("The e-mail and password you have entered do not match");
-	}
-	
 	public void logout() {
 		logoutButtom.click();
+	}
+	
+	public boolean badEmailLoginTest() {
+		return errorText.getText().contains("The e-mail and password you have entered do not match") || 
+				errorText.getText().contains("Please sign in using your e-mail address") ||
+				errorText.getText().contains("Please enter your password") ||
+				errorText.getText().contains("The e-mail address that you have entered is not properly formatted");
 	}
 }
