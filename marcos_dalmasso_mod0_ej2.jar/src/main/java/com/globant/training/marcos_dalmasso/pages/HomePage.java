@@ -27,9 +27,6 @@ public class HomePage {
 	
 	@FindBy(xpath="//form[@class='searchFormForm ']")
 	private WebElement tripForm;
-//	
-//	@FindBy(xpath="//p[starts-with(@class, 'error message')]")
-//	private WebElement wrongDateErrorMessage;
 	
 	public void goToHomePage(WebDriver driver) {
 		driver.get("http://www.cheaptickets.com/");
@@ -43,6 +40,10 @@ public class HomePage {
 		flightOnly.click();
 	}
 	
+	public void selectFlightAndHotel(WebDriver driver) {
+		driver.findElement(By.cssSelector("input[id='search.type.aph']")).click();
+	}
+	
 	public void selectOneWay() {
 		oneWay.click();
 	}
@@ -54,13 +55,24 @@ public class HomePage {
 		tripForm.findElement(By.cssSelector("input[name='search']")).click();
 	}
 	
+	public void fillTripForm(WebDriver driver) {
+		driver.findElement(By.cssSelector("input[name='aph.leaveSlice.orig.key']")).sendKeys("LAS");
+		driver.findElement(By.cssSelector("input[name='aph.leaveSlice.dest.key']")).sendKeys("LAX");
+		driver.findElement(By.cssSelector("input[name='aph.leaveSlice.date']")).sendKeys(dateFormat.format(new Date().getTime() + (1000 * 60 * 60 * 24)));
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_YEAR, 5); // adds 5 days to date
+		driver.findElement(By.cssSelector("input[name='aph.returnSlice.date']")).sendKeys(dateFormat.format(calendar.getTime()));
+		driver.findElement(By.cssSelector("option[value='1']")).click();
+		driver.findElement(By.cssSelector("input[data-wt-ti='SearchForm-searchButton']")).click();
+	}
+	
 	public void fillWrongDateTripForm(WebDriver driver) {
 		driver.findElement(By.cssSelector("input[name='ar.ow.leaveSlice.orig.key']")).sendKeys("LAS");
 		driver.findElement(By.cssSelector("input[name='ar.ow.leaveSlice.dest.key']")).sendKeys("LAX");
 		calendar.setTime(new Date());
 		calendar.add(Calendar.DAY_OF_YEAR, 350); // adds 350 days to date
 		driver.findElement(By.cssSelector("input[name='ar.ow.leaveSlice.date']")).sendKeys(dateFormat.format(calendar.getTime()));
-		tripForm.findElement(By.cssSelector("input[name='search']")).click();
+		driver.findElement(By.cssSelector("input[name='search']")).click();
 	}
 	
 	public boolean checkForErrors(WebDriver driver) {
